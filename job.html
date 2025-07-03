@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings - Find Your Next Career | Job Portal</title>
+    <style>
+        /* Basic Reset & Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap; /* Allows stacking on smaller screens */
+            align-items: flex-start; /* Align items to the top */
+        }
+
+        /* Filter Section (Sidebar) */
+        .filters-sidebar {
+            flex: 0 0 280px; /* Fixed width for filters */
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            position: sticky; /* Makes filters stick while scrolling jobs */
+            top: 20px; /* Distance from top when sticky */
+            align-self: flex-start; /* Ensure it starts at the top */
+        }
+
+        .filters-sidebar h2 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            border-bottom: 2px solid #e0f2ff;
+            padding-bottom: 10px;
+        }
+
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+            font-size: 1.05em;
+        }
+
+        .filter-group input[type="text"],
+        .filter-group select {
+            width: calc(100% - 20px); /* Adjust for padding */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .filter-group .checkbox-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .filter-group .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.1);
+        }
+
+        .filter-group button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745; /* Green for apply */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-group button:hover {
+            background-color: #218838;
+        }
+
+        /* Main Job Listings Area */
+        .job-listings-main {
+            flex: 1; /* Takes up remaining space */
+            min-width: 600px; /* Ensures it doesn't get too narrow */
+        }
+
+        .job-listings-main h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 2em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* Job Card Styling (List View) */
+        .job-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* If you want a Grid View:
+        .job-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        */
+
+        .job-card {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+            border-left: 6px solid #007bff; /* Accent border */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-size: 1.7em;
+        }
+
+        .job-card .company-location {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .job-card .company-location span {
+            display: flex;
+            align-items: center;
+        }
+
+        .job-card .company-location span strong {
+            margin-left: 5px; /* Space for icon if using */
+        }
+
+        .job-card .description {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Show max 3 lines */
+            -webkit-box-orient: vertical;
+        }
+
+        .job-card .tags {
+            margin-bottom: 15px;
+        }
+
+        .job-card .tag {
+            display: inline-block;
+            background-color: #e0f2ff;
+            color: #007bff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .job-card .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .job-card .posted-date {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        .job-card .actions a {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .job-card .actions a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            padding: 20px 0;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .pagination a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pagination a.active,
+        .pagination a:hover {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+                padding: 0 15px;
+            }
+            .filters-sidebar {
+                position: static; /* Remove sticky on smaller screens */
+                width: 100%;
+                flex: none;
+                margin-bottom: 20px;
+            }
+            .job-listings-main {
+                min-width: unset;
+                width: 100%;
+            }
+            .job-card {
+                padding: 20px;
+            }
+            .job-card h3 {
+                font-size: 1.5em;
+            }
+            .job-card .company-location {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .filters-sidebar, .job-card, .pagination {
+                padding: 15px;
+            }
+            .job-card .footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .job-card .actions {
+                width: 100%;
+                text-align: center;
+            }
+            .job-card .actions a {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Find Your Perfect Job</h1>
+        <p>Explore thousands of opportunities from top companies.</p>
+    </header>
+
+    <div class="container">
+        <aside class="filters-sidebar">
+            <h2>Filter Jobs</h2>
+            <form id="jobFiltersForm">
+                <div class="filter-group">
+                    <label for="keywords">Keywords</label>
+                    <input type="text" id="keywords" placeholder="e.g., 'Software Engineer', 'Marketing'">
+                </div>
+
+                <div class="filter-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" placeholder="e.g., 'Bengaluru', 'Remote'">
+                </div>
+
+                <div class="filter-group">
+                    <label for="jobType">Job Type</label>
+                    <select id="jobType">
+                        <option value="">All Types</option>
+                        <option value="full-time">Full-time</option>
+                        <option value="part-time">Part-time</option>
+                        <option value="contract">Contract</option>
+                        <option value="freelance">Freelance</option>
+                        <option value="internship">Internship</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="experience">Experience Level</label>
+                    <select id="experience">
+                        <option value="">Any Level</option>
+                        <option value="entry">Entry Level</option>
+                        <option value="mid">Mid-Senior Level</option>
+                        <option value="senior">Director</option>
+                        <option value="executive">Executive</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Salary Range (Annual)</label>
+                    <select id="salaryRange">
+                        <option value="">Any Salary</option>
+                        <option value="0-3">₹0 - ₹3 Lacs</option>
+                        <option value="3-6">₹3 - ₹6 Lacs</option>
+                        <option value="6-10">₹6 - ₹10 Lacs</option>
+                        <option value="10-15">₹10 - ₹15 Lacs</option>
+                        <option value="15-25">₹15 - ₹25 Lacs</option>
+                        <option value="25+">₹25 Lacs +</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <button type="submit">Apply Filters</button>
+                </div>
+            </form>
+        </aside>
+
+        <main class="job-listings-main">
+            <h2>Showing 1500+ Jobs</h2>
+            <div class="job-list" id="jobListings">
+                <div class="job-card">
+                    <h3>Frontend Developer (React.js)</h3>
+                    <div class="company-location">
+                        <span><strong>Tech Solutions Pvt. Ltd.</strong></span>
+                        <span>Chennai, Tamil Nadu</span>
+                        <span>Full-time</span>
+                    </div>
+                    <p class="description">
+                        We are looking for a skilled Frontend Developer with strong expertise in React.js to join our dynamic team. You will be responsible for developing and implementing user interface components using React.js concepts and workflows such as Redux, Webpack, and Babel.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">React.js</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag">UI/UX</span>
+                    </div>
+                    <div class="footer">
+                        <span class="posted-date">Posted 2 days ago</span>
+                        <div class="actions">
+                            <a href="/job-detail/frontend-react-123">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job-card">
+                    <h3>Senior Data Scientist</h3>
+                    <div class="company-location">
+                        <span><strong>InnovateAI Labs</strong></span>
+                        <span>Bengaluru, Karnataka (Hybrid)</span>
+                        <span>Full-time</span>
+                    </div>
+                    <p class="description">
+                        Seeking a Senior Data Scientist to lead our data analysis initiatives. The ideal candidate will have strong experience in machine learning, statistical modeling, and big data technologies (Spark, Hadoop). Proficiency in Python or R is required.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Big Data</span>
+                    </div>
+                    <div class="footer">
+                        <span class="posted-date">Posted 5 days ago</span>
+                        <div class="actions">
+                            <a href="/job-detail/data-scientist-456">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job-card">
+                    <h3>Marketing Manager</h3>
+                    <div class="company-location">
+                        <span><strong>Brand Builders India</strong></span>
+                        <span>Mumbai, Maharashtra</span>
+                        <span>Full-time</span>
+                    </div>
+                    <p class="description">
+                        We need an experienced Marketing Manager to develop and execute comprehensive marketing strategies. Responsibilities include market research, campaign management, digital marketing, and team leadership.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">Digital Marketing</span>
+                        <span class="tag">SEO/SEM</span>
+                        <span class="tag">Content Marketing</span>
+                        <span class="tag">Brand Management</span>
+                    </div>
+                    <div class="footer">
+                        <span class="posted-date">Posted 1 week ago</span>
+                        <div class="actions">
+                            <a href="/job-detail/marketing-manager-789">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="job-card">
+                    <h3>UI/UX Designer (Entry Level)</h3>
+                    <div class="company-location">
+                        <span><strong>Creative Sparks Design</strong></span>
+                        <span>Pune, Maharashtra</span>
+                        <span>Full-time</span>
+                    </div>
+                    <p class="description">
+                        An exciting opportunity for a passionate UI/UX Designer to contribute to innovative digital products. You'll work on wireframes, prototypes, user flows, and visual designs. Fresh graduates with strong portfolios are encouraged to apply.
+                    </p>
+                    <div class="tags">
+                        <span class="tag">UI/UX</span>
+                        <span class="tag">Figma</span>
+                        <span class="tag">Adobe XD</span>
+                        <span class="tag">Prototyping</span>
+                    </div>
+                    <div class="footer">
+                        <span class="posted-date">Posted 3 days ago</span>
+                        <div class="actions">
+                            <a href="/job-detail/ui-ux-designer-012">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+            <div class="pagination">
+                <a href="#">&laquo; Previous</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">Next &raquo;</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

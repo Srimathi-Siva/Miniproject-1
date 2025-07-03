@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal - Find Your Dream Job</title>
+    <style>
+        /* Basic CSS for demonstration */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .search-section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .search-section input[type="text"] {
+            width: 70%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .search-section button {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .categories-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .category-card {
+            background-color: #e9f5ff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            max-width: 200px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.2s;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        .category-card h3 {
+            margin-top: 0;
+            font-size: 1.1em;
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to Our Job Portal</h1>
+        <p>Your next career move starts here.</p>
+    </div>
+
+    <div class="search-section">
+        <form action="/job-listings" method="GET">
+            <input type="text" name="q" placeholder="Search for jobs (e.g., 'Software Engineer', 'Marketing Manager')">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="categories-section">
+        <h2>Browse by Category</h2>
+        <a href="/job-listings?category=it" class="category-card">
+            <h3>IT & Software</h3>
+            <p>1200+ Jobs</p>
+        </a>
+        <a href="/job-listings?category=marketing" class="category-card">
+            <h3>Marketing</h3>
+            <p>550+ Jobs</p>
+        </a>
+        <a href="/job-listings?category=finance" class="category-card">
+            <h3>Finance</h3>
+            <p>300+ Jobs</p>
+        </a>
+        <a href="/job-listings?category=healthcare" class="category-card">
+            <h3>Healthcare</h3>
+            <p>780+ Jobs</p>
+        </a>
+        <a href="/job-listings?category=education" class="category-card">
+            <h3>Education</h3>
+            <p>420+ Jobs</p>
+        </a>
+        <a href="/job-listings?category=sales" class="category-card">
+            <h3>Sales</h3>
+            <p>610+ Jobs</p>
+        </a>
+    </div>
+
+    </body>
+</html>
