@@ -791,3 +791,362 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Job Portal</title>
+    <style>
+        /* Basic Reset & Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+        }
+
+        /* Sidebar Navigation (Optional, but good for dashboards) */
+        .sidebar {
+            flex: 0 0 220px; /* Fixed width sidebar */
+            background-color: #fdfdfd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            align-self: flex-start; /* Stick to the top */
+        }
+
+        .sidebar h2 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.5em;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #555;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: 500;
+        }
+
+        .sidebar ul li a:hover,
+        .sidebar ul li a.active {
+            background-color: #e0f2ff;
+            color: #007bff;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1; /* Takes up remaining space */
+            min-width: 600px; /* Ensures it doesn't get too narrow */
+        }
+
+        .main-content section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+
+        .main-content h1 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-align: center;
+        }
+
+        .main-content h2 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0f2ff;
+            padding-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        /* Job Card Styling */
+        .job-list {
+            display: grid;
+            gap: 20px;
+            /* Responsive grid: 1 column on small screens, 2 on larger */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .job-card {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-left: 5px solid #007bff; /* Accent color */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .job-card h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-size: 1.4em;
+        }
+
+        .job-card p {
+            margin-bottom: 8px;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .job-card .company {
+            font-weight: bold;
+            color: #444;
+        }
+
+        .job-card .location {
+            font-style: italic;
+            color: #777;
+        }
+
+        .job-card .status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+
+        /* Status Specific Colors */
+        .status.applied { background-color: #d4edda; color: #155724; } /* Green for applied */
+        .status.pending { background-color: #fff3cd; color: #856404; } /* Yellow for pending */
+        .status.interview { background-color: #cce5ff; color: #004085; } /* Blue for interview */
+        .status.rejected { background-color: #f8d7da; color: #721c24; } /* Red for rejected */
+
+        .job-card .date {
+            font-size: 0.85em;
+            color: #888;
+            text-align: right;
+            margin-top: auto; /* Pushes date to the bottom if content varies */
+        }
+
+        .job-card .actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .job-card .actions a {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        .job-card .actions a.view-details {
+            background-color: #007bff;
+        }
+
+        .job-card .actions a.remove-saved {
+            background-color: #dc3545; /* Red for remove */
+        }
+
+        .job-card .actions a:hover {
+            opacity: 0.9;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                margin: 15px;
+                padding: 15px;
+            }
+            .sidebar {
+                flex: none; /* Remove fixed width */
+                width: 100%; /* Take full width */
+                margin-bottom: 20px;
+            }
+            .main-content {
+                min-width: unset; /* Remove min-width for smaller screens */
+                width: 100%;
+            }
+            .job-list {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
+            }
+            .main-content h1 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            .main-content h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 10px;
+            }
+            .main-content section {
+                padding: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Dashboard Menu</h2>
+            <ul>
+                <li><a href="#" class="active">My Dashboard</a></li>
+                <li><a href="#saved-jobs">Saved Jobs</a></li>
+                <li><a href="#applied-history">Applied History</a></li>
+                <li><a href="#">Profile Settings</a></li>
+                <li><a href="#">Notifications</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <h1>Welcome, [User Name]!</h1>
+
+            <section id="saved-jobs">
+                <h2><i class="icon-bookmark"></i> My Saved Jobs</h2>
+                <div class="job-list">
+                    <div class="job-card">
+                        <div>
+                            <h3>Senior Software Engineer</h3>
+                            <p class="company">Tech Innovators Inc.</p>
+                            <p class="location">Bengaluru, India</p>
+                        </div>
+                        <div class="actions">
+                            <a href="/job/details/123" class="view-details">View Details</a>
+                            <a href="#" class="remove-saved">Remove</a>
+                        </div>
+                        <p class="date">Saved on: 2025-07-01</p>
+                    </div>
+
+                    <div class="job-card">
+                        <div>
+                            <h3>Marketing Specialist</h3>
+                            <p class="company">Global Solutions Co.</p>
+                            <p class="location">Chennai, India</p>
+                        </div>
+                        <div class="actions">
+                            <a href="/job/details/124" class="view-details">View Details</a>
+                            <a href="#" class="remove-saved">Remove</a>
+                        </div>
+                        <p class="date">Saved on: 2025-06-28</p>
+                    </div>
+
+                    <div class="job-card">
+                        <div>
+                            <h3>Data Scientist</h3>
+                            <p class="company">Analytics Hub</p>
+                            <p class="location">Pune, India</p>
+                        </div>
+                        <div class="actions">
+                            <a href="/job/details/125" class="view-details">View Details</a>
+                            <a href="#" class="remove-saved">Remove</a>
+                        </div>
+                        <p class="date">Saved on: 2025-06-25</p>
+                    </div>
+
+                    </div>
+            </section>
+
+            <section id="applied-history">
+                <h2><i class="icon-history"></i> My Application History</h2>
+                <div class="job-list">
+                    <div class="job-card">
+                        <div>
+                            <h3>Full Stack Developer</h3>
+                            <p class="company">Web Solutions Ltd.</p>
+                            <p class="location">Hyderabad, India</p>
+                        </div>
+                        <p class="status applied">Applied</p>
+                        <p class="date">Applied on: 2025-06-30</p>
+                        <div class="actions">
+                            <a href="/job/details/126" class="view-details">View Details</a>
+                            </div>
+                    </div>
+
+                    <div class="job-card">
+                        <div>
+                            <h3>Product Manager</h3>
+                            <p class="company">Innovate Corp.</p>
+                            <p class="location">Mumbai, India</p>
+                        </div>
+                        <p class="status pending">Pending Review</p>
+                        <p class="date">Applied on: 2025-06-20</p>
+                        <div class="actions">
+                            <a href="/job/details/127" class="view-details">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="job-card">
+                        <div>
+                            <h3>Graphic Designer</h3>
+                            <p class="company">Creative Minds Studio</p>
+                            <p class="location">Delhi, India</p>
+                        </div>
+                        <p class="status interview">Interview Scheduled</p>
+                        <p class="date">Applied on: 2025-06-10</p>
+                        <div class="actions">
+                            <a href="/job/details/128" class="view-details">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="job-card">
+                        <div>
+                            <h3>Customer Support Executive</h3>
+                            <p class="company">Service Pro</p>
+                            <p class="location">Bengaluru, India</p>
+                        </div>
+                        <p class="status rejected">Rejected</p>
+                        <p class="date">Applied on: 2025-05-25</p>
+                        <div class="actions">
+                            <a href="/job/details/129" class="view-details">View Details</a>
+                        </div>
+                    </div>
+                    </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
