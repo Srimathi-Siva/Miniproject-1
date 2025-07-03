@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Application Form - Frontend Developer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f0f2f5, #e3f2fd);
+      color: #333;
+    }
+
+    .form-container {
+      max-width: 700px;
+      margin: 60px auto;
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-title {
+      text-align: center;
+      color: #0d6efd;
+      margin-bottom: 30px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    label {
+      font-weight: 500;
+      color: #212529;
+    }
+
+    .form-control:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+    }
+
+    .btn-submit {
+      background-color: #198754;
+      color: white;
+      padding: 10px 24px;
+      border: none;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+      background-color: #145c32;
+      transform: scale(1.05);
+    }
+
+    .required-star {
+      color: red;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #6c757d;
+    }
+
+    .custom-bg {
+      background: linear-gradient(120deg, #dbeafe, #fef9ff);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container form-container">
+  <div class="form-title">Job Application Form</div>
+
+  <form>
+    <div class="mb-3">
+      <label for="fullname" class="form-label">Full Name <span class="required-star">*</span></label>
+      <input type="text" class="form-control" id="fullname" placeholder="Enter your full name" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email Address <span class="required-star">*</span></label>
+      <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone Number <span class="required-star">*</span></label>
+      <input type="tel" class="form-control" id="phone" placeholder="e.g. 9876543210" pattern="[0-9]{10}" required>
+      <div class="note">10 digits only</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="resume" class="form-label">Upload Resume <span class="required-star">*</span></label>
+      <input type="file" class="form-control" id="resume" accept=".pdf,.doc,.docx" required>
+      <div class="note">Accepted formats: .pdf, .doc, .docx</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="linkedin" class="form-label">LinkedIn Profile (Optional)</label>
+      <input type="url" class="form-control" id="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+    </div>
+
+    <div class="custom-bg">
+      <div class="mb-3">
+        <label for="coverletter" class="form-label">Why Should We Hire You?</label>
+        <textarea class="form-control" id="coverletter" rows="4" placeholder="Briefly explain your strengths or interest in this role."></textarea>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-submit">Submit Application</button>
+    </div>
+  </form>
+</div>
+
+
+
+</body>
+</html>
