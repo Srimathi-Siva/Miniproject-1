@@ -614,3 +614,180 @@
     </div>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Job Detail - Frontend Developer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <style>
+    body {
+      background: linear-gradient(to right, #e3f2fd, #fffafc);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .job-container {
+      max-width: 960px;
+      margin: 50px auto;
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      animation: fadeInUp 1s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .company-name {
+      font-size: 28px;
+      font-weight: bold;
+      color: #0d6efd;
+      margin-bottom: 15px;
+    }
+
+    h3 {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .info-row p {
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 30px;
+      padding: 6px 12px;
+      border-left: 6px solid;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+
+    .about { border-color: #0d6efd; color: #0d6efd; }
+    .role { border-color: #dc3545; color: #dc3545; }
+    .responsibilities { border-color: #20c997; color: #20c997; }
+    .skills { border-color: #6610f2; color: #6610f2; }
+    .preferred { border-color: #6c757d; color: #6c757d; }
+    .apply { border-color: #198754; color: #198754; }
+
+    .badge-skill {
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      margin: 6px 5px 0 0;
+      transition: transform 0.3s;
+    }
+
+    .badge-skill:hover {
+      transform: scale(1.1);
+    }
+
+
+    .bg-blue { background-color: #cce5ff; color: #004085; }
+    .bg-red { background-color: #f8d7da; color: #721c24; }
+    .bg-green { background-color: #d4edda; color: #155724; }
+    .bg-teal { background-color: #d1f5f0; color: #0f766e; }
+    .bg-gray { background-color: #e2e3e5; color: #383d41; }
+    .bg-purple { background-color: #e6d4ff; color: #4b0082; }
+
+    .apply-button {
+      margin-top: 40px;
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #0d6efd;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .apply-button:hover {
+      background-color: #084298;
+      transform: scale(1.05);
+    }
+
+    hr {
+      opacity: 0.15;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container job-container">
+  <div class="company-name">TechNova Solutions Pvt. Ltd.</div>
+  <h3 class="mb-3">Frontend Developer</h3>
+
+  <div class="row info-row">
+    <div class="col-md-6">
+      <p><strong>Location:</strong> Chennai, Tamil Nadu (Hybrid)</p>
+      <p><strong>Type:</strong> Full-Time</p>
+      <p><strong>Experience:</strong> 0–2 Years</p>
+    </div>
+    <div class="col-md-6">
+      <p><strong>Salary:</strong> ₹4 LPA – ₹6 LPA</p>
+      <p><strong>Education:</strong> B.E/B.Tech – CSE, IT or Related</p>
+      <p><strong>Posted:</strong> July 3, 2025</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="section-title about">About the Company</div>
+  <p>
+    TechNova Solutions is a dynamic tech company specializing in web development, cloud platforms, and AI-driven software. We create modern digital experiences for global clients with innovation at our core.
+  </p>
+
+  <div class="section-title role">Role Overview</div>
+  <p>
+    The Frontend Developer will be responsible for building intuitive, pixel-perfect, and user-friendly web interfaces. You’ll work closely with our design and backend team to bring ideas to life.
+  </p>
+
+  <div class="section-title responsibilities">Key Responsibilities</div>
+  <ul>
+    <li>Convert UI/UX designs to responsive HTML/CSS/JS code.</li>
+    <li>Ensure browser compatibility and mobile responsiveness.</li>
+    <li>Collaborate with designers and backend developers.</li>
+    <li>Maintain code versioning using Git.</li>
+    <li>Optimize site speed and performance.</li>
+  </ul>
+
+  <div class="section-title skills">Required Skills</div>
+  <div>
+    <span class="badge-skill bg-blue">HTML5</span>
+    <span class="badge-skill bg-red">CSS3</span>
+    <span class="badge-skill bg-green">Bootstrap</span>
+    <span class="badge-skill bg-teal">JavaScript</span>
+    <span class="badge-skill bg-purple">Git</span>
+    <span class="badge-skill bg-gray">Responsive Design</span>
+  </div>
+
+  <div class="section-title preferred">Preferred Qualifications</div>
+  <ul>
+    <li>Knowledge of React or Vue.js.</li>
+    <li>Experience with Figma or Adobe XD.</li>
+    <li>Basic understanding of REST APIs.</li>
+  </ul>
+
+  <div class="section-title apply">How to Apply</div>
+  <p>
+    To apply, click the button below and fill out the form. Ensure you upload your resume in PDF format. We’ll get in touch with shortlisted candidates within 7 working days.
+  </p>
+
+ <a href="apllication.html" class="btn apply-button">Apply Now</a>
+
+</div>
+
+
+
+</body>
+</html>
